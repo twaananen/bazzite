@@ -266,6 +266,7 @@ RUN rpm-ostree install \
     mkdir -p /var/mnt/parity1 && \
     mkdir -p /var/mnt/storage && \
     cat /tmp/fstab >> /etc/fstab
+    
 
 # Cleanup & Finalize
 COPY system_files/shared /
