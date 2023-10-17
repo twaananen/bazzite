@@ -24,6 +24,7 @@ jobs:
         with:
           release-type: node
           package-name: release-please-action
+          bootstrap-sha: 06c88683ad897a10c499e82cc6ea07c2400494e6
   build-iso:
     name: Generate and Release ISOs
     runs-on: ubuntu-latest
