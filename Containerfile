@@ -262,9 +262,9 @@ COPY *.sh fstab /tmp/
 RUN rpm-ostree install \
     snapraid && \
     /tmp/github-release-install.sh trapexit/mergerfs fc.x86_64 && \
-    mkdir /var/mnt/disk{1,2,3,4} && \
-    mkdir /var/mnt/parity1 && \
-    mkdir /var/mnt/storage && \
+    mkdir -p /var/mnt/disk{1,2,3,4} && \
+    mkdir -p /var/mnt/parity1 && \
+    mkdir -p /var/mnt/storage && \
     cat /tmp/fstab >> /etc/fstab
 
 # Cleanup & Finalize
