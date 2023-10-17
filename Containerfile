@@ -21,23 +21,23 @@ COPY --from=ghcr.io/ublue-os/akmods:${AKMODS_FLAVOR}-${FEDORA_MAJOR_VERSION} /rp
 RUN sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/_copr_ublue-os-akmods.repo && \
     wget https://negativo17.org/repos/fedora-multimedia.repo -O /etc/yum.repos.d/negativo17-fedora-multimedia.repo && \
     if [[ "${FEDORA_MAJOR_VERSION}" -ge "39" ]]; then \
-        rpm-ostree install \
-            /tmp/akmods-rpms/kmods/*xpadneo*.rpm \
-            /tmp/akmods-rpms/kmods/*xpad-noone*.rpm \
-            /tmp/akmods-rpms/kmods/*xone*.rpm \
-            /tmp/akmods-rpms/kmods/*openrazer*.rpm \
-            /tmp/akmods-rpms/kmods/*v4l2loopback*.rpm \
-            /tmp/akmods-rpms/kmods/*wl*.rpm \
+    rpm-ostree install \
+    /tmp/akmods-rpms/kmods/*xpadneo*.rpm \
+    /tmp/akmods-rpms/kmods/*xpad-noone*.rpm \
+    /tmp/akmods-rpms/kmods/*xone*.rpm \
+    /tmp/akmods-rpms/kmods/*openrazer*.rpm \
+    /tmp/akmods-rpms/kmods/*v4l2loopback*.rpm \
+    /tmp/akmods-rpms/kmods/*wl*.rpm \
     ; else \
-        rpm-ostree install \
-            /tmp/akmods-rpms/kmods/*evdi*.rpm \
+    rpm-ostree install \
+    /tmp/akmods-rpms/kmods/*evdi*.rpm \
     ; fi && \
     rpm-ostree install \
-        /tmp/akmods-rpms/kmods/*gcadapter_oc*.rpm \
-        /tmp/akmods-rpms/kmods/*nct6687*.rpm \
-        /tmp/akmods-rpms/kmods/*openrgb*.rpm \
-        /tmp/akmods-rpms/kmods/*ryzen-smu*.rpm \
-        /tmp/akmods-rpms/kmods/*winesync*.rpm && \
+    /tmp/akmods-rpms/kmods/*gcadapter_oc*.rpm \
+    /tmp/akmods-rpms/kmods/*nct6687*.rpm \
+    /tmp/akmods-rpms/kmods/*openrgb*.rpm \
+    /tmp/akmods-rpms/kmods/*ryzen-smu*.rpm \
+    /tmp/akmods-rpms/kmods/*winesync*.rpm && \
     sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/negativo17-fedora-multimedia.repo && \
     mkdir -p /etc/akmods-rpms/ && \
     mv /tmp/akmods-rpms/kmods/*steamdeck*.rpm /etc/akmods-rpms/steamdeck.rpm
@@ -109,22 +109,22 @@ RUN rpm-ostree install \
 # Configure KDE & GNOME
 RUN if grep -q "kinoite" <<< "${BASE_IMAGE_NAME}"; then \
     rpm-ostree override remove \
-        plasma-welcome \
-        qt5-qdbusviewer && \
+    plasma-welcome \
+    qt5-qdbusviewer && \
     rpm-ostree install \
-        steamdeck-kde-presets-desktop \
-        wallpaper-engine-kde-plugin \
-        kdeconnectd \
-        extest.i686 \
-        rom-properties-kf5 && \
+    steamdeck-kde-presets-desktop \
+    wallpaper-engine-kde-plugin \
+    kdeconnectd \
+    extest.i686 \
+    rom-properties-kf5 && \
     if [[ "${FEDORA_MAJOR_VERSION}" -lt "39" ]]; then \
-        rpm-ostree override replace \
-        --experimental \
-        --from repo=copr:copr.fedorainfracloud.org:kylegospo:gnome-vrr \
-            xorg-x11-server-Xwayland \
+    rpm-ostree override replace \
+    --experimental \
+    --from repo=copr:copr.fedorainfracloud.org:kylegospo:gnome-vrr \
+    xorg-x11-server-Xwayland \
     ; fi && \
     if grep -qv "nvidia" <<< "${IMAGE_NAME}"; then \
-        rpm-ostree install colord-kde \
+    rpm-ostree install colord-kde \
     ; fi && \
     git clone https://github.com/maxiberta/kwin-system76-scheduler-integration.git --depth 1 /tmp/kwin-system76-scheduler-integration && \
     git clone https://github.com/catsout/wallpaper-engine-kde-plugin.git --depth 1 /tmp/wallpaper-engine-kde-plugin && \
@@ -133,50 +133,50 @@ RUN if grep -q "kinoite" <<< "${BASE_IMAGE_NAME}"; then \
     rm -rf /tmp/kwin-system76-scheduler-integration && \
     rm -rf /tmp/wallpaper-engine-kde-plugin && \
     sed -i 's@After=plasma-core.target@After=plasma-core.target\nAfter=xdg-desktop-portal.service@g' /usr/lib/systemd/user/plasma-xdg-desktop-portal-kde.service \
-; else \
-    if [[ "${FEDORA_MAJOR_VERSION}" -lt "39" ]]; then \
-        rpm-ostree override replace \
-        --experimental \
-        --from repo=copr:copr.fedorainfracloud.org:kylegospo:gnome-vrr \
-            mutter \
-            mutter-common \
-            gnome-control-center \
-            gnome-control-center-filesystem \
-            xorg-x11-server-Xwayland && \
-        rpm-ostree install \
-            gnome-shell-extension-tailscale-status \
     ; else \
-        rpm-ostree override replace \
-        --experimental \
-        --from repo=copr:copr.fedorainfracloud.org:kylegospo:gnome-vrr \
-            mutter \
-            mutter-common \
-            gnome-control-center \
-            gnome-control-center-filesystem && \
-        rpm-ostree install \
-            gnome-shell-extension-tailscale-gnome-qs \
+    if [[ "${FEDORA_MAJOR_VERSION}" -lt "39" ]]; then \
+    rpm-ostree override replace \
+    --experimental \
+    --from repo=copr:copr.fedorainfracloud.org:kylegospo:gnome-vrr \
+    mutter \
+    mutter-common \
+    gnome-control-center \
+    gnome-control-center-filesystem \
+    xorg-x11-server-Xwayland && \
+    rpm-ostree install \
+    gnome-shell-extension-tailscale-status \
+    ; else \
+    rpm-ostree override replace \
+    --experimental \
+    --from repo=copr:copr.fedorainfracloud.org:kylegospo:gnome-vrr \
+    mutter \
+    mutter-common \
+    gnome-control-center \
+    gnome-control-center-filesystem && \
+    rpm-ostree install \
+    gnome-shell-extension-tailscale-gnome-qs \
     ; fi && \
     rpm-ostree install \
-        xwaylandvideobridge \
-        steamdeck-backgrounds \
-        gnome-randr-rust \
-        gnome-shell-extension-user-theme \
-        gnome-shell-extension-gsconnect \
-        gnome-shell-extension-system76-scheduler \
-        gnome-shell-extension-caribou-blocker \
-        gnome-shell-extension-compiz-windows-effect \
-        gnome-shell-extension-just-perfection \
-        gnome-shell-extension-blur-my-shell \
-        gnome-shell-extension-hanabi \
-        gnome-shell-extension-gamerzilla \
-        rom-properties-gtk3 \
-        openssh-askpass && \
+    xwaylandvideobridge \
+    steamdeck-backgrounds \
+    gnome-randr-rust \
+    gnome-shell-extension-user-theme \
+    gnome-shell-extension-gsconnect \
+    gnome-shell-extension-system76-scheduler \
+    gnome-shell-extension-caribou-blocker \
+    gnome-shell-extension-compiz-windows-effect \
+    gnome-shell-extension-just-perfection \
+    gnome-shell-extension-blur-my-shell \
+    gnome-shell-extension-hanabi \
+    gnome-shell-extension-gamerzilla \
+    rom-properties-gtk3 \
+    openssh-askpass && \
     rpm-ostree override remove \
-        gnome-classic-session \
-        gnome-tour \
-        gnome-extensions-app \
-        gnome-initial-setup \
-; fi
+    gnome-classic-session \
+    gnome-tour \
+    gnome-extensions-app \
+    gnome-initial-setup \
+    ; fi
 
 # Install gamescope-limiter patched Mesa and patched udisks2 (Needed for SteamOS SD card mounting)
 RUN if [[ "${FEDORA_MAJOR_VERSION}" -ge "39" ]]; then \
@@ -256,6 +256,16 @@ RUN if grep -qv "nvidia" <<< "${IMAGE_NAME}"; then \
         mangohud.x86_64 \
         mangohud.i686 \
 ; fi
+
+# Install snapraid, mergerfs and setup mergerfs
+COPY *.sh fstab /tmp/
+RUN rpm-ostree install \
+    snapraid && \
+    /tmp/github-release-install.sh trapexit/mergerfs fc.x86_64 && \
+    mkdir /var/mnt/disk{1,2,3,4} && \
+    mkdir /var/mnt/parity1 && \
+    mkdir /var/mnt/storage && \
+    cat /tmp/fstab >> /etc/fstab
 
 # Cleanup & Finalize
 COPY system_files/shared /

@@ -1,0 +1,27 @@
+
+# / was on /dev/nvme0n1p2 during installation
+#UUID=f7c00d86-13d2-486c-92bf-2efdb5ef60f0 /               ext4    errors=remount-ro 0       1
+# /boot/efi was on /dev/nvme0n1p1 during installation
+#UUID=5064-500B  /boot/efi       vfat    umask=0077      0       1
+# /home was on /dev/nvme0n1p3 during installation
+#UUID=ae43f027-3a61-4596-98ed-96827a9cdde8 /home           ext4    defaults        0       2
+# swap was on /dev/nvme0n1p4 during installation
+#UUID=db2a9a5d-f2e6-45e7-9df1-8d3488a02d53 none            swap    sw              0       0
+
+## Automount separate disks
+#/dev/disk/by-uuid/a0397cdd-f871-467c-8f5f-afbfb49aa7e1 /mnt/Photos auto nosuid,nodev,nofail,x-gvfs-show 0 0
+#/dev/disk/by-uuid/c56cf92f-7e8c-481e-ae0a-5ae7f4467b6e /mnt/Viihde auto nosuid,nodev,nofail,x-gvfs-show 0 0
+
+## Mergerfs & SnapRAID
+/dev/disk/by-id/ata-Samsung_SSD_870_EVO_4TB_S6BCNX0TA00449M-part1 /var/mnt/parity1  ext4 defaults 0 0
+/dev/disk/by-id/ata-Samsung_SSD_870_QVO_2TB_S5RPNF0T624781R-part1 /var/mnt/disk1   ext4 defaults 0 0
+/dev/disk/by-id/ata-Samsung_SSD_870_QVO_2TB_S5RPNF0T624783E-part1 /var/mnt/disk2   ext4 defaults 0 0
+/dev/disk/by-id/ata-Samsung_SSD_870_EVO_4TB_S6BCNX0TA01723W-part1 /var/mnt/disk3   ext4 defaults 0 0
+/dev/disk/by-id/ata-Samsung_SSD_870_QVO_2TB_S5RPNF0T624590E-part1 /var/mnt/disk4 ext4 defaults 0 0
+#/dev/disk/by-id/ata-WDC_WD7500AACS-00ZJB0_WD-WCASN0104337-part1 /mnt/disk5   ext4 defaults 0 0
+#/dev/disk/by-id/ata-WDC_WD7500AACS-00ZJB0_WD-WCASP0056942-part1  /mnt/disk6   ext4 defaults 0 0
+
+/var/mnt/disk* /var/mnt/storage fuse.mergerfs defaults,nonempty,allow_other,use_ino,cache.files=partial,moveonenospc=true,dropcacheonclose=true,minfreespace=20G,fsname=mergerfs 0 0
+
+# Backup
+/dev/disk/by-id/ata-Samsung_Portable_SSD_T5_S4B1NV0MA06962R-part1 /var/mnt/backup ext4 defaults 0 0
