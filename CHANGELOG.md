@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.4.0](https://github.com/twaananen/bazzite/compare/v1.3.0...v1.4.0) (2023-10-18)
+
+
+### Features
+
+* Add snapraid, mergerfs and setup mergerfs mount. ([4431e92](https://github.com/twaananen/bazzite/commit/4431e92543ea79be6e5ac0f01a05f4bb0c6a1013))
+
+
+### Bug Fixes
+
+* add fedora version target to mergerfs. ([7242351](https://github.com/twaananen/bazzite/commit/7242351fa457917612342334e72c0d32d6f35541))
+* semantic versioning fix ([3887994](https://github.com/twaananen/bazzite/commit/38879949ab38eadeb24489e363f26ff7fd0f87ca))
+* Update release-please.yml with bootstrap-sha ([23d6232](https://github.com/twaananen/bazzite/commit/23d6232828de49d20a4fd4b0d008716ede5a82e2))
+
 ## [1.3.0](https://github.com/ublue-os/bazzite/compare/v1.2.2...v1.3.0) (2023-10-12)
 
 
