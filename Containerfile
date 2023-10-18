@@ -257,15 +257,11 @@ RUN if grep -qv "nvidia" <<< "${IMAGE_NAME}"; then \
         mangohud.i686 \
 ; fi
 
-# Install snapraid, mergerfs and setup mergerfs
-COPY *.sh fstab /tmp/
+# Install snapraid, mergerfs
+COPY *.sh /tmp/
 RUN rpm-ostree install \
     snapraid && \
-    /tmp/github-release-install.sh trapexit/mergerfs fc.x86_64 && \
-    mkdir -p /var/mnt/disk{1,2,3,4} && \
-    mkdir -p /var/mnt/parity1 && \
-    mkdir -p /var/mnt/storage && \
-    cat /tmp/fstab >> /etc/fstab
+    /tmp/github-release-install.sh trapexit/mergerfs fc38.x86_64
     
 
 # Cleanup & Finalize
