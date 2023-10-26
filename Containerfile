@@ -266,6 +266,12 @@ RUN if grep -qv "nvidia" <<< "${IMAGE_NAME}"; then \
         obs-vkcapture.i686 \
 ; fi
 
+# Install snapraid, mergerfs
+COPY *.sh /tmp/
+RUN rpm-ostree install \
+    snapraid && \
+    /tmp/github-release-install.sh trapexit/mergerfs fc38.x86_64
+
 # Cleanup & Finalize
 COPY system_files/shared /
 RUN /tmp/image-info.sh && \
